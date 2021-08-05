@@ -11,7 +11,7 @@ export default function code(req, res) {
             assert.notEqual(null, twoFactorCode, "LoginIncorrect");
             assert.notEqual(null, response, "LoginIncorrect");
         }catch (bodyError) {
-            res.status(403).send(bodyError.message);
+            res.status(403).json({response:bodyError.message});
         }
         if (response) {
             res.status(200).json(response)

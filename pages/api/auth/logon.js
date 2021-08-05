@@ -8,7 +8,7 @@ export default function logon(req, res) {
             assert.notEqual(null, email, 'CantLogon');
             assert.notEqual(null, response, 'CantLogon');
         }catch (bodyError) {
-            res.status(403).json(bodyError.message);
+            res.status(403).json({response:bodyError.message});
         }
         if (response){
             res.status(200).json(response)
