@@ -5,14 +5,14 @@ export default function logon(req, res) {
         const {email,twoFactorCode} = req.body;
         const response = findResponseToResendCode({email});
         try {
-            assert.notEqual(null, email, 'CantLogon');
-            assert.notEqual(null, twoFactorCode, 'CantLogon');
+            assert.notEqual(undefined, email, 'CantLogon');
+            assert.notEqual(undefined, twoFactorCode, 'CantLogon');
             assert.notEqual(null, response, 'CantLogon');
+            if (response) {
+                res.status(200).send(response);
+            }
         }catch (bodyError) {
             res.status(403).send({response:bodyError.message});
-        }
-        if (response) {
-            res.status(200).send(response);
         }
     }else{
         res.statusCode = 401;

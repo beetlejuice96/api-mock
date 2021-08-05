@@ -5,14 +5,15 @@ export default function logon(req, res) {
         const {email} = req.body;
         const response = findUserByEmailLogon({email});
         try {
-            assert.notEqual(null, email, 'CantLogon');
+            assert.notEqual(undefined, email, 'CantLogon');
             assert.notEqual(null, response, 'CantLogon');
+            if (response){
+                res.status(200).json(response)
+            }
         }catch (bodyError) {
             res.status(403).json({response:bodyError.message});
         }
-        if (response){
-            res.status(200).json(response)
-        }
+
     }else{
         res.statusCode = 401;
         res.end()

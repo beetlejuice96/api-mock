@@ -5,13 +5,13 @@ export default function logon(req, res) {
         const {email} = req.body;
         const response = findUserByEmailRecover({email});
         try {
-            assert.notEqual(null, req.body.email, 'CanNotRecover');
+            assert.notEqual(undefined, email, 'CanNotRecover');
             assert.notEqual(null, response, 'CanNotRecover');
+            if (response) {
+                res.status(200).send(response);
+            }
         }catch (bodyError) {
             res.status(403).send(bodyError.message);
-        }
-        if (response) {
-            res.status(200).send(response);
         }
     }else{
         res.statusCode = 401;
