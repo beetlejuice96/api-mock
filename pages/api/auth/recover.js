@@ -1,19 +1,19 @@
 import assert from "assert";
-
+import { findUserByEmailRecover} from '../../../lib/user/FakesUsers'
 export default function logon(req, res) {
     if (req.method === 'POST') {
+        const {email} = req.body;
+        const response = findUserByEmailRecover({email});
         try {
             assert.notEqual(null, req.body.email, 'CanNotRecover');
         }catch (bodyError) {
             res.status(403).send(bodyError.message);
         }
-        const {email} = req.body;
-        if (email) {
-            res.status(200).send("Ok");
+        if (response) {
+            res.status(200).send(response);
         }
     }else{
         res.statusCode = 401;
         res.end()
     }
-
 }

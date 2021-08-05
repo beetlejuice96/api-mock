@@ -1,9 +1,9 @@
 import assert from "assert";
-import {findUserByEmail} from '../../../lib/user/FakesUsers'
+import {findUserByEmailLogon} from '../../../lib/user/FakesUsers'
 export default function logon(req, res) {
     if (req.method === 'POST') {
         const {email} = req.body;
-        const response = findUserByEmail({email});
+        const response = findUserByEmailLogon({email});
         try {
             assert.notEqual(null, email, 'CantLogon');
             assert.notEqual(null, response, 'CantLogon');
