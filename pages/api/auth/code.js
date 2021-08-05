@@ -3,7 +3,8 @@ import {findResponseToCode} from "../../../lib/user/FakesUsers";
 const assert = require('assert');
 
 export default function code(req, res) {
-    const {email,twoFactorCode} = req.body;
+    const {email} = req.body;
+    const twoFactorCode= req.body['2fa-data']
     const response = findResponseToCode({email});
     if (req.method === 'POST') {
         try {
