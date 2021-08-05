@@ -6,6 +6,7 @@ export default function logon(req, res) {
         const response = findUserByEmailRecover({email});
         try {
             assert.notEqual(null, req.body.email, 'CanNotRecover');
+            assert.notEqual(null, response, 'CanNotRecover');
         }catch (bodyError) {
             res.status(403).send(bodyError.message);
         }
