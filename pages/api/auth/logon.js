@@ -1,21 +1,17 @@
 import assert from "assert";
-
+import {findUserByEmail} from '../../../lib/user/FakesUsers'
 export default function logon(req, res) {
     if (req.method === 'POST') {
+        const {email} = req.body;
+        const response = findUserByEmail({email});
         try {
-            assert.notEqual(null, req.body.email, 'Email required');
-            assert.notEqual(null, req.body.password, 'Password required');
+            assert.notEqual(null, email, 'CantLogon');
+            assert.notEqual(null, response, 'CantLogon');
         }catch (bodyError) {
-            res.status(403).json({
-                "response": "LoginIncorrect"
-            });
+            res.status(403).json(bodyError.message);
         }
-        const {email,password} = req.body;
-        if (email&&password){
-            res.status(200).json({
-                response: "Ok",
-                token: "stringstringstringstringstringstringstringstr"
-            })
+        if (response){
+            res.status(200).json(response)
         }
     }else{
         res.statusCode = 401;
